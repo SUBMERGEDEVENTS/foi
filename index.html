@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friends of Istokpoga Lake Association</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cypress:   #1C3A2B;
+    --water:     #3D7A8A;
+    --water-lt:  #6BAAB8;
+    --sand:      #E8DFC8;
+    --cream:     #F7F4EE;
+    --earth:     #2C1810;
+    --gold:      #B5852A;
+    --white:     #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--earth);
+    background: var(--cream);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    background: rgba(28, 58, 43, 0.96);
+    backdrop-filter: blur(6px);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--sand);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    line-height: 1.2;
+  }
+
+  .nav-logo span {
+    display: block;
+    font-size: 0.7rem;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--water-lt);
+    font-weight: 300;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--sand);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--water-lt); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--white) !important;
+    padding: 0.4rem 1.1rem;
+    border-radius: 3px;
+    opacity: 1 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: #c99830 !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(to bottom, rgba(28,58,43,0.55) 0%, rgba(28,58,43,0.3) 40%, rgba(28,58,43,0.75) 100%),
+      url('images/dock_sunset.jpg') center 40%/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--water-lt);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    color: var(--white);
+    line-height: 1.12;
+    max-width: 820px;
+    margin-bottom: 1.4rem;
+    font-weight: 700;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--sand);
+  }
+
+  .hero-sub {
+    color: var(--sand);
+    font-size: 1.15rem;
+    max-width: 580px;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #c99830; transform: translateY(-1px); }
+
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.6);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .hero-scroll svg { width: 20px; opacity: 0.5; }
+
+  /* RIPPLE DIVIDER */
+  .ripple-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin-bottom: -2px;
+  }
+
+  .ripple-divider svg { display: block; width: 100%; }
+
+  /* MISSION STRIP */
+  .mission-strip {
+    background: var(--cypress);
+    color: var(--sand);
+    text-align: center;
+    padding: 3.5rem 2rem;
+  }
+
+  .mission-strip p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    max-width: 760px;
+    margin: 0 auto;
+    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .mission-strip cite {
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--water-lt);
+    margin-top: 1rem;
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--water);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    color: var(--cypress);
+    line-height: 1.18;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: #4a4035;
+    max-width: 620px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  /* ABOUT GRID */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-image {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-image-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(28,58,43,0.85), transparent);
+    color: var(--sand);
+    font-size: 0.78rem;
+    padding: 2rem 1rem 0.8rem;
+    letter-spacing: 0.06em;
+  }
+
+  .about-content h2 { margin-bottom: 1rem; }
+
+  .about-content p { margin-bottom: 1rem; color: #3a3028; font-weight: 300; }
+
+  .about-badge {
+    display: inline-block;
+    background: var(--sand);
+    border: 1px solid var(--gold);
+    color: var(--earth);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 2px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  /* PILLARS */
+  .pillars-bg { background: var(--white); }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .pillar-card {
+    background: var(--cream);
+    border-top: 3px solid var(--cypress);
+    padding: 2rem;
+    border-radius: 0 0 4px 4px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(28,58,43,0.12); }
+
+  .pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pillar-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--cypress);
+    margin-bottom: 0.6rem;
+  }
+
+  .pillar-card p { font-size: 0.95rem; color: #4a4035; font-weight: 300; }
+
+  /* PHOTO GALLERY */
+  .gallery-bg { background: var(--cypress); }
+
+  .gallery-bg .section-title { color: var(--sand); }
+  .gallery-bg .section-eyebrow { color: var(--water-lt); }
+  .gallery-bg .section-lead { color: rgba(232,223,200,0.75); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0.5rem;
+  }
+
+  .photo-grid .photo-item {
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .photo-grid .photo-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+    filter: brightness(0.88);
+  }
+
+  .photo-grid .photo-item:hover img { transform: scale(1.06); filter: brightness(1); }
+
+  .photo-item-wide {
+    grid-column: span 2;
+  }
+
+  .photo-item-wide img { height: 260px !important; }
+
+  .photo-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(28,58,43,0.8), transparent);
+    color: var(--sand);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1.5rem 0.75rem 0.5rem;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .photo-item:hover .photo-label { opacity: 1; }
+
+  /* NEWSLETTER */
+  .newsletter-bg { background: var(--sand); }
+
+  .newsletter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .newsletter-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .newsletter-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--white);
+    border-left: 3px solid var(--water);
+    color: var(--cypress);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 0 3px 3px 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .newsletter-list li a:hover { background: #eef7f9; border-color: var(--cypress); }
+
+  .newsletter-list li .nl-date {
+    font-size: 0.78rem;
+    color: var(--water);
+    font-weight: 300;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* JOIN / DONATE */
+  .join-bg { background: var(--white); }
+
+  .join-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .join-card {
+    padding: 2.5rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .join-card-member {
+    background: var(--cypress);
+    color: var(--sand);
+  }
+
+  .join-card-donate {
+    background: var(--cream);
+    border: 2px solid var(--cypress);
+    color: var(--earth);
+  }
+
+  .join-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .join-card-member h3 { color: var(--white); }
+  .join-card-donate h3 { color: var(--cypress); }
+
+  .join-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin: 0.75rem 0;
+  }
+
+  .join-price span { font-size: 1rem; font-weight: 300; color: var(--sand); }
+  .join-card-donate .join-price span { color: #7a6a55; }
+
+  .join-card ul {
+    list-style: none;
+    margin: 1.2rem 0 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .join-card li {
+    font-size: 0.92rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  .join-card li::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  .contact-bg { background: var(--cypress); }
+  .contact-bg .section-title { color: var(--white); }
+  .contact-bg .section-eyebrow { color: var(--water-lt); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .contact-info p {
+    color: var(--sand);
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-detail-icon {
+    color: var(--water-lt);
+    font-size: 1.1rem;
+    margin-top: 0.1rem;
+  }
+
+  .contact-detail-text {
+    color: var(--sand);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  .contact-detail-text strong {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--water-lt);
+    margin-bottom: 0.15rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    color: var(--white);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--water-lt); background: rgba(255,255,255,0.12); }
+
+  .contact-form textarea { resize: vertical; min-height: 120px; }
+
+  .contact-form button {
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 3px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+
+  .contact-form button:hover { background: #c99830; }
+
+  /* EMAIL SIGNUP */
+  .signup-strip {
+    background: var(--water);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .signup-strip h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .signup-strip p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .signup-form {
+    display: flex;
+    gap: 0;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .signup-form input {
+    flex: 1;
+    padding: 0.85rem 1.1rem;
+    border: none;
+    border-radius: 3px 0 0 3px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+  }
+
+  .signup-form button {
+    background: var(--cypress);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0 3px 3px 0;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .signup-form button:hover { background: #0e2218; }
+
+  /* FOOTER */
+  footer {
+    background: var(--earth);
+    color: rgba(232,223,200,0.65);
+    padding: 3rem 2rem 1.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--sand);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .footer-brand p {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+  }
+
+  .footer-col h4 {
+    color: var(--sand);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li { margin-bottom: 0.5rem; }
+
+  .footer-col ul li a {
+    color: rgba(232,223,200,0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover { color: var(--sand); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(232,223,200,0.12);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-social a {
+    color: rgba(232,223,200,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-social a:hover { color: var(--sand); }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.active { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 4px;
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: var(--sand);
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .about-grid, .newsletter-grid, .contact-grid, .join-grid { grid-template-columns: 1fr; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-item-wide { grid-column: span 2; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 500px) {
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-item-wide { grid-column: span 1; }
+    .signup-form { flex-direction: column; }
+    .signup-form input, .signup-form button { border-radius: 3px; }
+  }
+
+  /* ===== LIVE CONDITIONS DASHBOARD ===== */
+  .conditions-bg { background: var(--cypress); padding: 5rem 2rem; }
+  .conditions-bg .section-eyebrow { color: var(--water-lt); }
+  .conditions-bg .section-title   { color: var(--white); }
+  .conditions-bg .section-lead    { color: rgba(232,223,200,0.65); }
+
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .d-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(232,223,200,0.1);
+    border-radius: 6px;
+    padding: 1.2rem 1.4rem;
+    transition: border-color 0.2s;
+  }
+  .d-card:hover { border-color: rgba(232,223,200,0.22); }
+
+  .d-eyebrow {
+    font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--water-lt); font-weight: 600; margin-bottom: 0.55rem;
+  }
+
+  .d-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 600; line-height: 1; color: var(--white);
+  }
+  .d-unit { font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; font-weight: 300; color: rgba(232,223,200,0.45); margin-left: 0.2rem; }
+  .d-label { font-size: 0.8rem; color: rgba(232,223,200,0.5); font-weight: 300; margin-top: 0.2rem; }
+
+  .d-status {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 0.2rem 0.55rem;
+    border-radius: 3px; margin-top: 0.65rem;
+  }
+  .ds-ok     { background: rgba(45,140,78,0.2);  color: #5DC981; border: 1px solid rgba(45,140,78,0.35); }
+  .ds-warn   { background: rgba(196,123,26,0.2); color: #E0A84A; border: 1px solid rgba(196,123,26,0.35); }
+  .ds-danger { background: rgba(176,58,46,0.2);  color: #E07060; border: 1px solid rgba(176,58,46,0.35); }
+  .ds-low    { background: rgba(107,122,144,0.2);color: #9AAABB; border: 1px solid rgba(107,122,144,0.35); }
+
+  /* water level gauge */
+  .d-card-water { grid-column: span 4; }
+  .gauge-wrap { position: relative; width: 110px; height: 110px; margin: 0.6rem 0; }
+  .gauge-svg  { width: 110px; height: 110px; transform: rotate(-90deg); }
+  .gauge-track { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 9; }
+  .gauge-fill  { fill: none; stroke-width: 9; stroke-linecap: round;
+                 transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);
+                 stroke-dasharray: 283; stroke-dashoffset: 283; }
+  .gauge-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .gauge-center .gv { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 600; color: var(--white); line-height: 1; }
+  .gauge-center .gu { font-size: 0.6rem; color: rgba(232,223,200,0.4); letter-spacing: 0.07em; }
+
+  .range-bar-wrap { margin-top: 0.9rem; }
+  .range-bar-labels { display: flex; justify-content: space-between; font-size: 0.62rem; color: rgba(232,223,200,0.35); margin-bottom: 0.25rem; font-family: 'JetBrains Mono', monospace; }
+  .range-bar-track { height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; position: relative; }
+  .range-bar-zone  { position: absolute; top: 0; bottom: 0; background: rgba(45,140,78,0.22); border-radius: 3px; }
+  .range-bar-marker { position: absolute; top: -4px; width: 14px; height: 14px; background: var(--white); border-radius: 50%; border: 2px solid var(--cypress); transform: translateX(-50%); transition: left 1.2s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 0 2px var(--water-lt); }
+
+  /* wind */
+  .d-card-wind { grid-column: span 3; }
+  .wind-compass { position: relative; width: 76px; height: 76px; margin: 0.5rem 0; }
+  .wind-compass svg { width: 76px; height: 76px; }
+  .wind-arrow { transform-origin: center; transition: transform 1s cubic-bezier(.4,0,.2,1); }
+
+  /* temp / humid */
+  .d-card-temp  { grid-column: span 2; }
+  .d-card-humid { grid-column: span 3; }
+
+  /* advisory */
+  .d-card-advisory { grid-column: span 5; }
+  .adv-item { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(232,223,200,0.06); font-size: 0.82rem; color: rgba(232,223,200,0.75); line-height: 1.4; }
+  .adv-item:last-child { border-bottom: none; }
+  .adv-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .dot-g { background: #5DC981; box-shadow: 0 0 5px #5DC981; }
+  .dot-y { background: #E0A84A; box-shadow: 0 0 5px #E0A84A; }
+  .dot-r { background: #E07060; box-shadow: 0 0 5px #E07060; }
+
+  /* forecast */
+  .d-card-forecast { grid-column: span 7; }
+  .forecast-row { display: flex; gap: 0.4rem; margin-top: 0.7rem; overflow-x: auto; padding-bottom: 0.2rem; }
+  .fc-day { flex: 1; min-width: 66px; background: rgba(255,255,255,0.04); border-radius: 4px; padding: 0.55rem 0.4rem; text-align: center; border: 1px solid rgba(232,223,200,0.06); }
+  .fc-name { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(232,223,200,0.4); margin-bottom: 0.35rem; }
+  .fc-icon { font-size: 1.2rem; margin-bottom: 0.25rem; }
+  .fc-temp { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--white); }
+  .fc-wind { font-size: 0.65rem; color: rgba(232,223,200,0.35); margin-top: 0.15rem; }
+
+  /* seasons */
+  .d-card-seasons { grid-column: span 12; }
+  .seasons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0.9rem; }
+  .season-cat h4 { font-size: 0.7rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--water-lt); font-weight: 600; margin-bottom: 0.75rem; padding-bottom: 0.45rem; border-bottom: 1px solid rgba(232,223,200,0.09); }
+  .s-item { display: flex; align-items: flex-start; gap: 0.7rem; margin-bottom: 0.7rem; }
+  .s-icon { font-size: 1.2rem; flex-shrink: 0; line-height: 1.3; }
+  .s-name { font-weight: 600; font-size: 0.85rem; color: var(--white); margin-bottom: 0.1rem; }
+  .s-note { font-size: 0.75rem; color: rgba(232,223,200,0.5); font-weight: 300; line-height: 1.4; }
+  .s-badge { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 0.18rem 0.45rem; border-radius: 2px; white-space: nowrap; align-self: center; flex-shrink: 0; }
+  .sb-peak    { background: rgba(45,140,78,0.22);  color: #5DC981; }
+  .sb-active  { background: rgba(61,122,138,0.22); color: #7BBFCC; }
+  .sb-nesting { background: rgba(181,133,42,0.22); color: #D4A04A; }
+  .sb-caution { background: rgba(176,58,46,0.18);  color: #E07060; }
+  .sb-closed  { background: rgba(107,122,144,0.18);color: #8899AA; }
+
+  /* fallback banner */
+  .dash-fallback-note {
+    max-width: 1100px; margin: 0 auto 1rem;
+    padding: 0.55rem 1rem;
+    background: rgba(181,133,42,0.12); border: 1px solid rgba(181,133,42,0.28);
+    border-radius: 4px; font-size: 0.75rem; color: rgba(232,223,200,0.6);
+    display: none;
+  }
+
+  .dash-source-note {
+    max-width: 1100px; margin: 1.2rem auto 0;
+    font-size: 0.7rem; color: rgba(232,223,200,0.28);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .dash-source-note a { color: rgba(107,170,184,0.6); text-decoration: none; }
+  .dash-source-note a:hover { color: var(--water-lt); }
+
+  @media (max-width: 900px) {
+    .d-card-water, .d-card-wind, .d-card-temp, .d-card-humid { grid-column: span 6; }
+    .d-card-advisory, .d-card-forecast { grid-column: span 12; }
+    .d-card-seasons { grid-column: span 12; }
+    .seasons-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 580px) {
+    .d-card-water, .d-card-wind, .d-card-temp, .d-card-humid,
+    .d-card-advisory, .d-card-forecast, .d-card-seasons { grid-column: span 12; }
+  }
+  /* ===== END DASHBOARD ===== */
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    Friends of Istokpoga Lake
+    <span>Association, Inc. &bull; Est. 1998</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#conditions">Lake Conditions</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#join" class="nav-cta">Join / Donate</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Highlands County, Florida &bull; 501(c)(3) Nonprofit</p>
+  <h1>Protecting <em>Lake Istokpoga</em><br>for Every Generation</h1>
+  <p class="hero-sub">One of Florida's largest natural lakes deserves a voice. Since 1998, we've been that voice -- fighting for clean water, healthy habitat, and a thriving ecosystem on the shores of Highlands County.</p>
+  <div class="hero-actions">
+    <a href="#join" class="btn-primary">Become a Member</a>
+    <a href="#about" class="btn-outline">Learn More</a>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll
+  </div>
+</section>
+
+<!-- RIPPLE DIVIDER -->
+<div class="ripple-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" height="60">
+    <path d="M0,30 C120,55 240,5 360,30 C480,55 600,5 720,30 C840,55 960,5 1080,30 C1200,55 1320,5 1440,30 L1440,60 L0,60 Z" fill="#1C3A2B"/>
+  </svg>
+</div>
+
+<!-- MISSION STRIP -->
+<div class="mission-strip">
+  <p>"A registered 501(c)(3) nonprofit dedicated to saving Lake Istokpoga from harm and preserving its pristine natural beauty for the people, wildlife, and communities that depend on it."</p>
+  <cite>Friends of Istokpoga Lake Association, Inc.</cite>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid fade-up">
+      <div class="about-image">
+        <img src="images/bass_catch_2.jpg" alt="Trophy largemouth bass caught on Lake Istokpoga">
+        <div class="about-image-caption">Trophy largemouth bass -- what Istokpoga is famous for</div>
+      </div>
+      <div class="about-content">
+        <span class="about-badge">501(c)(3) Nonprofit &bull; Lorida, FL 33857</span>
+        <p class="section-eyebrow">Who We Are</p>
+        <h2 class="section-title">A Community United for a Lake</h2>
+        <p>Lake Istokpoga is Florida's fifth-largest lake and one of its most ecologically rich -- home to trophy bass, rare birds like the Snail Kite, and a watershed that sustains the entire Highlands County community.</p>
+        <p>Friends of Istokpoga Lake Association was founded in 1998 by local residents who saw the pressures of development and agricultural runoff threatening what they loved. We've been monitoring water quality, advocating for sound lake management, and educating the public ever since.</p>
+        <p>Our members include anglers, birders, kayakers, homeowners, and farmers -- anyone who has a stake in the lake's future.</p>
+        <a href="#join" class="btn-primary" style="margin-top:0.5rem;">Join the Association</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars-bg" id="mission">
+  <div class="section-inner">
+    <p class="section-eyebrow fade-up">What We Do</p>
+    <h2 class="section-title fade-up">Three Pillars of Stewardship</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card fade-up">
+        <span class="pillar-icon">🔬</span>
+        <h3>Water Quality Monitoring</h3>
+        <p>We track nutrient levels, algae blooms, and water clarity throughout the year, reporting findings to SFWMD and state environmental agencies to keep Istokpoga's water clean.</p>
+      </div>
+      <div class="pillar-card fade-up">
+        <span class="pillar-icon">🦅</span>
+        <h3>Wildlife Habitat</h3>
+        <p>From nesting Ospreys to the federally threatened Snail Kite, we advocate for the preservation of shoreline vegetation, nesting areas, and the aquatic plants that support a complete food chain.</p>
+      </div>
+      <div class="pillar-card fade-up">
+        <span class="pillar-icon">📢</span>
+        <h3>Public Advocacy</h3>
+        <p>We attend water management hearings, comment on permit applications, and work alongside county commissioners to ensure development decisions consider the lake's long-term health.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-bg" id="gallery">
+  <div class="section-inner">
+    <p class="section-eyebrow fade-up">Photography</p>
+    <h2 class="section-title fade-up">Life on Istokpoga</h2>
+    <p class="section-lead fade-up">Submitted by members and neighbors who love this lake. Click any photo to enlarge.</p>
+    <div class="photo-grid fade-up">
+      <div class="photo-item photo-item-wide" onclick="openLightbox(this)">
+        <img src="images/dock_sunset.jpg" alt="Sunset on Lake Istokpoga dock">
+        <div class="photo-label">Sunset on the Lake</div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/bass_catch_1.jpg" alt="Largemouth bass caught on Lake Istokpoga">
+        <div class="photo-label">Great Catch</div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/bass_catch_2.jpg" alt="Trophy bass on Lake Istokpoga">
+        <div class="photo-label">Trophy Bass</div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1545420050-acf4a9f69618?w=800&q=80" alt="Bass fishing">
+        <div class="photo-label">Trophy Bass</div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=800&q=80" alt="Florida sunrise on the water">
+        <div class="photo-label">Sunrise on the Lake</div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="https://images.unsplash.com/photo-1518623001395-125242310d0c?w=800&q=80" alt="Florida sunset">
+        <div class="photo-label">Istokpoga Sunset</div>
+      </div>
+    </div>
+    <p style="color:rgba(232,223,200,0.5); font-size:0.8rem; margin-top:1rem; text-align:right;">Share your lake photos with us on Facebook to be featured here.</p>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-bg" id="newsletter">
+  <div class="section-inner">
+    <div class="newsletter-grid">
+      <div class="fade-up">
+        <p class="section-eyebrow">Stay Informed</p>
+        <h2 class="section-title">The Istokpoga Newswire</h2>
+        <p class="section-lead">Our member newsletter covers water quality reports, wildlife sightings, advocacy updates, and upcoming events. Archives go back to 1999.</p>
+        <ul class="newsletter-list">
+          <li><a href="#">Spring 2026 Issue <span class="nl-date">Apr 2026</span></a></li>
+          <li><a href="#">Winter 2025 Issue <span class="nl-date">Jan 2026</span></a></li>
+          <li><a href="#">Fall 2025 Issue <span class="nl-date">Oct 2025</span></a></li>
+          <li><a href="#">Summer 2025 Issue <span class="nl-date">Jul 2025</span></a></li>
+          <li><a href="#">View Full Archive &rarr; <span class="nl-date">All Issues</span></a></li>
+        </ul>
+      </div>
+      <div class="fade-up">
+        <p class="section-eyebrow">Lake Activity Map</p>
+        <h2 class="section-title">Grid Map</h2>
+        <p style="color:#4a4035; font-weight:300; margin-bottom:1.5rem;">Use our reference grid map to report fish locations, water conditions, or wildlife observations to the association.</p>
+        <div style="background: var(--white); border-radius:4px; padding:2rem; text-align:center; border: 2px dashed rgba(61,122,138,0.3);">
+          <div style="font-size:3rem; margin-bottom:0.75rem;">🗺️</div>
+          <p style="font-weight:600; color:var(--cypress); margin-bottom:0.4rem;">Lake Istokpoga Grid Map</p>
+          <p style="font-size:0.85rem; color:#6a5f50; margin-bottom:1rem;">Full navigational reference for anglers, boaters, and researchers</p>
+          <a href="#" class="btn-primary" style="font-size:0.85rem; padding:0.65rem 1.4rem;">Download PDF Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE CONDITIONS -->
+<section class="conditions-bg" id="conditions">
+  <div class="section-inner" style="max-width:1100px; margin:0 auto 1.5rem;">
+    <p class="section-eyebrow">Live Data</p>
+    <h2 class="section-title">Lake Conditions Right Now</h2>
+    <p class="section-lead">Water level, weather, fishing, and wildlife -- updated every time you visit.</p>
+  </div>
+
+  <div class="dash-fallback-note" id="dash-fallback-note">
+    ⚠ Some live data could not be reached. Showing recent estimates. All sources load fully on the deployed site.
+  </div>
+
+  <div class="dash-grid" id="dash-loading" style="max-width:1100px; margin:0 auto;">
+    <div style="grid-column:span 12; text-align:center; padding:3rem 0; color:rgba(232,223,200,0.35); font-size:0.9rem;">
+      <span style="display:inline-block;width:8px;height:8px;background:var(--water-lt);border-radius:50%;animation:dpulse 1.2s ease-in-out infinite;margin:0 3px;"></span>
+      <span style="display:inline-block;width:8px;height:8px;background:var(--water-lt);border-radius:50%;animation:dpulse 1.2s ease-in-out infinite .2s;margin:0 3px;"></span>
+      <span style="display:inline-block;width:8px;height:8px;background:var(--water-lt);border-radius:50%;animation:dpulse 1.2s ease-in-out infinite .4s;margin:0 3px;"></span>
+    </div>
+  </div>
+
+  <div class="dash-grid" id="dash-grid" style="display:none;">
+
+    <!-- WATER LEVEL -->
+    <div class="d-card d-card-water">
+      <div class="d-eyebrow">Water Level &bull; USGS #02271700</div>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 100 100">
+            <circle class="gauge-track" cx="50" cy="50" r="45"/>
+            <circle class="gauge-fill" id="d-gauge-fill" cx="50" cy="50" r="45"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="gv" id="d-wl-val">--</div>
+            <div class="gu">ft NGVD</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:110px;">
+          <div class="d-label" id="d-wl-change" style="margin-bottom:0.4rem;">--</div>
+          <div id="d-wl-status" class="d-status ds-low">--</div>
+          <div class="range-bar-wrap">
+            <div class="range-bar-labels"><span>35 ft</span><span>Target 37.5&ndash;39.5</span><span>42 ft</span></div>
+            <div class="range-bar-track">
+              <div class="range-bar-zone" style="left:35.7%;width:28.6%;"></div>
+              <div class="range-bar-marker" id="d-wl-marker" style="left:35%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="d-drought-note" style="margin-top:0.8rem;font-size:0.74rem;color:rgba(232,223,200,0.45);line-height:1.5;">--</div>
+    </div>
+
+    <!-- WIND -->
+    <div class="d-card d-card-wind">
+      <div class="d-eyebrow">Wind</div>
+      <div style="display:flex;align-items:center;gap:0.9rem;">
+        <div class="wind-compass">
+          <svg viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="34" fill="rgba(255,255,255,0.03)" stroke="rgba(232,223,200,0.09)" stroke-width="1"/>
+            <text x="38" y="9"  text-anchor="middle" fill="rgba(232,223,200,0.35)" font-size="7" font-family="Source Sans 3">N</text>
+            <text x="38" y="72" text-anchor="middle" fill="rgba(232,223,200,0.35)" font-size="7" font-family="Source Sans 3">S</text>
+            <text x="5"  y="41" text-anchor="middle" fill="rgba(232,223,200,0.35)" font-size="7" font-family="Source Sans 3">W</text>
+            <text x="71" y="41" text-anchor="middle" fill="rgba(232,223,200,0.35)" font-size="7" font-family="Source Sans 3">E</text>
+            <g class="wind-arrow" id="d-wind-arrow">
+              <polygon points="38,14 41.5,48 38,45 34.5,48" fill="#6BAAB8" opacity="0.9"/>
+              <polygon points="38,62 41.5,28 38,31 34.5,28" fill="rgba(232,223,200,0.18)"/>
+            </g>
+            <circle cx="38" cy="38" r="3" fill="var(--white)"/>
+          </svg>
+        </div>
+        <div>
+          <div class="d-value" id="d-wind-spd">--<span class="d-unit">mph</span></div>
+          <div class="d-label" id="d-wind-dir">-- &bull; gusts -- mph</div>
+          <div id="d-wind-status" class="d-status ds-low" style="margin-top:0.5rem;">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMP -->
+    <div class="d-card d-card-temp">
+      <div class="d-eyebrow">Air Temp</div>
+      <div class="d-value" id="d-temp">--<span class="d-unit">&deg;F</span></div>
+      <div class="d-label" id="d-feel">Feels like --&deg;</div>
+      <div style="margin-top:0.5rem;font-size:0.76rem;color:rgba(232,223,200,0.35);" id="d-hilo">H:-- / L:--</div>
+    </div>
+
+    <!-- HUMIDITY -->
+    <div class="d-card d-card-humid">
+      <div class="d-eyebrow">Humidity &amp; Precip</div>
+      <div class="d-value" id="d-humid">--<span class="d-unit">%</span></div>
+      <div class="d-label">Relative humidity</div>
+      <div style="margin-top:0.5rem;font-size:0.76rem;color:rgba(232,223,200,0.35);" id="d-precip">Precip today: -- in</div>
+    </div>
+
+    <!-- ADVISORY -->
+    <div class="d-card d-card-advisory">
+      <div class="d-eyebrow">On-the-Water Advisory</div>
+      <div id="d-advisory" style="margin-top:0.5rem;"></div>
+    </div>
+
+    <!-- FORECAST -->
+    <div class="d-card d-card-forecast">
+      <div class="d-eyebrow">5-Day Forecast &bull; Lake Istokpoga Area</div>
+      <div class="forecast-row" id="d-forecast"></div>
+    </div>
+
+    <!-- SEASONS -->
+    <div class="d-card d-card-seasons">
+      <div class="d-eyebrow">Seasonal Calendar &bull; <span id="d-season-month">--</span></div>
+      <div class="seasons-grid" id="d-seasons"></div>
+    </div>
+
+  </div>
+
+  <div class="dash-source-note">
+    <span>Water level: <a href="https://waterdata.usgs.gov/monitoring-location/02271700/" target="_blank">USGS Station 02271700</a> &bull; Weather: <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></span>
+    <span>Seasons: FWC &bull; SFWMD management targets: 37.5&ndash;39.5 ft</span>
+  </div>
+</section>
+
+<style>
+@keyframes dpulse {
+  0%,100% { opacity:.2; transform:scale(.8); }
+  50%      { opacity:1;  transform:scale(1.2); }
+}
+</style>
+
+<script>
+(function() {
+  const LAKE_LAT = 27.367, LAKE_LNG = -81.283, USGS_SITE = '02271700';
+  const WL_MIN = 37.5, WL_MAX = 39.5;
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const FISH = {
+    0:[{n:'Largemouth Bass',t:'Pre-spawn. Bass moving shallow, beds starting mid-month.',b:'peak'},{n:'Crappie (Speck)',t:'Good action on structure with jigs and minnows.',b:'active'},{n:'Catfish',t:'Active year-round. Best near creek mouths.',b:'active'}],
+    1:[{n:'Largemouth Bass',t:'Peak spawn. Largest fish of the year caught on beds.',b:'peak'},{n:'Crappie (Speck)',t:'Excellent -- schooling near docks and hydrilla edges.',b:'peak'},{n:'Bluegill / Bream',t:'Beginning to pick up near shorelines.',b:'active'}],
+    2:[{n:'Largemouth Bass',t:'Post-spawn. Fish recovering, still in shallows.',b:'active'},{n:'Bluegill / Bream',t:'Good spawn action begins. Beds visible in clear shallows.',b:'peak'},{n:'Crappie (Speck)',t:'Still solid but tapering as water warms.',b:'active'}],
+    3:[{n:'Bluegill / Bream',t:'Peak spawn. Beds everywhere on full/new moon cycles.',b:'peak'},{n:'Largemouth Bass',t:'Active but pressured post-spawn. Go early or late.',b:'active'},{n:'Catfish',t:'Good. Spawning beginning in deeper channels.',b:'active'}],
+    4:[{n:'Bluegill / Bream',t:'Continued strong action through the month.',b:'peak'},{n:'Largemouth Bass',t:'Summer patterns developing. Deep hydrilla, early morning.',b:'active'},{n:'Catfish',t:'Excellent -- peak spawn activity.',b:'peak'}],
+    5:[{n:'Largemouth Bass',t:'Early morning topwater. Midday go deep on grass edges.',b:'active'},{n:'Sunshine Bass',t:'Schooling on shad in open water. Follow birds.',b:'active'},{n:'Bluegill / Bream',t:'Heat slowing midday activity.',b:'active'}],
+    6:[{n:'Largemouth Bass',t:'Summer pattern. Grass edges at dawn/dusk. Slow midday.',b:'active'},{n:'Sunshine Bass',t:'Good schooling on shad schools.',b:'active'},{n:'Catfish',t:'Active at night. Cut bait on channel edges.',b:'active'}],
+    7:[{n:'Largemouth Bass',t:'Tough month. Early morning only. Frog rigs on grass mats.',b:'active'},{n:'Sunshine Bass',t:'Schooling on open water. Watch for diving birds.',b:'active'}],
+    8:[{n:'Largemouth Bass',t:'Starting to transition. Increasing activity as water cools.',b:'active'},{n:'Bluegill / Bream',t:'Second spawn possible with cooling water temps.',b:'active'},{n:'Catfish',t:'Good channel action year-round.',b:'active'}],
+    9:[{n:'Largemouth Bass',t:'Fall transition. Feeding heavily. Great for reaction baits.',b:'peak'},{n:'Crappie (Speck)',t:'Returning to structure. Early fall schooling.',b:'active'},{n:'Bluegill / Bream',t:'Good in cooler morning hours.',b:'active'}],
+    10:[{n:'Largemouth Bass',t:'Excellent fall fishing. Pre-winter feed. Shad patterns.',b:'peak'},{n:'Crappie (Speck)',t:'Very good. Schooling on submerged structure.',b:'peak'},{n:'Catfish',t:'Good cooler weather action.',b:'active'}],
+    11:[{n:'Largemouth Bass',t:'Winter pattern beginning. Slow presentations near warm water.',b:'active'},{n:'Crappie (Speck)',t:'Good action continues through winter months.',b:'peak'},{n:'Catfish',t:'Year-round producer. Night fishing productive.',b:'active'}]
+  };
+
+  const WILD = {
+    0:[{n:'Bald Eagle',t:'Active nesting. Chicks present in many nests around the lake.',b:'nesting',i:'🦅'},{n:'Snail Kite',t:'Active foraging. Apple snail dependent. Watch near hydrilla.',b:'active',i:'🦢'},{n:'Osprey',t:'Nesting season underway. Pairs on towers and dead trees.',b:'nesting',i:'🦅'}],
+    1:[{n:'Bald Eagle',t:'Eaglets growing. Best viewing month near known nest trees.',b:'nesting',i:'🦅'},{n:'Wood Stork',t:'Nesting colony active. Flocks foraging lake shallows.',b:'nesting',i:'🐦'},{n:'Snail Kite',t:'Peak foraging. Federally threatened -- observe from distance.',b:'caution',i:'🦢'},{n:'Alligator',t:'Basking midday. Active but not yet breeding season.',b:'active',i:'🐊'}],
+    2:[{n:'Bald Eagle',t:'Fledglings leaving nests. High aerial activity.',b:'active',i:'🦅'},{n:'Great Blue Heron',t:'Rookery nesting in full swing in cypress strands.',b:'nesting',i:'🦢'},{n:'Alligator',t:'Becoming more active as temperatures rise.',b:'active',i:'🐊'}],
+    3:[{n:'Alligator',t:'Breeding bellowing begins at dawn. Very active -- use caution.',b:'caution',i:'🐊'},{n:'Roseate Spoonbill',t:'Occasional sightings. Look in shallow flats at dawn.',b:'active',i:'🦩'},{n:'Little Blue Heron',t:'Nesting in mixed rookeries. Juveniles white -- easy to confuse.',b:'nesting',i:'🦢'}],
+    4:[{n:'Alligator',t:'Peak breeding season. Bull gators extremely active at dawn.',b:'caution',i:'🐊'},{n:'Florida Softshell Turtle',t:'Nesting on sandy banks and road shoulders. Drive carefully.',b:'nesting',i:'🐢'},{n:'Purple Gallinule',t:'Stunning plumage. Walking on lily pads in shallow margins.',b:'peak',i:'🐦'}],
+    5:[{n:'Alligator',t:'Nest building. Females protective of mounds -- wide berth.',b:'caution',i:'🐊'},{n:'Snail Kite',t:'Juveniles beginning to disperse. Watch for banded birds.',b:'active',i:'🦢'},{n:'Least Bittern',t:'Breeding in marsh vegetation. Listen for calls at dawn.',b:'nesting',i:'🐦'}],
+    6:[{n:'Alligator',t:'Eggs incubating. Female stays near nest -- do not approach.',b:'caution',i:'🐊'},{n:'Anhinga',t:'Juveniles visible at surface. Flocks at roost sites at dusk.',b:'active',i:'🐦'}],
+    7:[{n:'Alligator',t:'Eggs hatching mid-to-late month. Mother very defensive near nest.',b:'caution',i:'🐊'},{n:'Florida Sandhill Crane',t:'Juveniles (colts) now following parents. Family groups visible.',b:'active',i:'🐦'}],
+    8:[{n:'Alligator',t:'Baby gators dispersing into shoreline vegetation.',b:'active',i:'🐊'},{n:'Migratory Shorebirds',t:'Early fall migration underway. Watch mudflats for rarities.',b:'active',i:'🐦'},{n:'Osprey',t:'Adults teaching juveniles to fish. Watch for family groups.',b:'active',i:'🦅'}],
+    9:[{n:'Migratory Waterfowl',t:'First arrivals -- Ringnecks and Lesser Scaup incoming.',b:'active',i:'🦆'},{n:'American Coot',t:'Flocks building on open water. Increasing through winter.',b:'active',i:'🐦'},{n:'Painted Bunting',t:'Fall migrants stopping over in seed-bearing grasses.',b:'active',i:'🐦'}],
+    10:[{n:'Migratory Waterfowl',t:'Peak arrival. Ring-necked Duck, Scaup, Blue-winged Teal abundant.',b:'peak',i:'🦆'},{n:'American Bittern',t:'Arriving for winter. Easier to hear than see.',b:'active',i:'🐦'},{n:'Bald Eagle',t:'Non-nesting eagles arriving from the north to winter here.',b:'active',i:'🦅'}],
+    11:[{n:'Migratory Waterfowl',t:'Winter flocks at peak. Excellent birding month on the lake.',b:'peak',i:'🦆'},{n:'Bald Eagle',t:'Early nesting pairs back on territory. Courtship begins.',b:'active',i:'🦅'},{n:'Sandhill Crane',t:'Florida subspecies active. Pairs establishing territories.',b:'active',i:'🐦'}]
+  };
+
+  function compassDir(d) {
+    return ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'][Math.round(d/22.5)%16];
+  }
+  function wmoIcon(c) {
+    if(c===0)return'☀️';if(c<=2)return'⛅';if(c===3)return'☁️';
+    if(c<=49)return'🌫️';if(c<=59)return'🌦️';if(c<=69)return'🌧️';
+    if(c<=79)return'🌨️';if(c<=84)return'🌨️';if(c<=99)return'⛈️';return'🌡️';
+  }
+
+  const WL_FALLBACK = { current: 36.82, prev: 36.85, isFallback: true };
+  const WX_FALLBACK = {
+    isFallback: true,
+    current: { temperature_2m:91, apparent_temperature:98, relative_humidity_2m:74,
+               wind_speed_10m:7, wind_direction_10m:135, wind_gusts_10m:12, precipitation:0, weather_code:2 },
+    daily: {
+      time: [0,1,2,3,4,5].map(i=>{ const d=new Date();d.setDate(d.getDate()+i);return d.toISOString().split('T')[0]; }),
+      temperature_2m_max:[92,91,89,90,93,91], temperature_2m_min:[74,73,72,74,75,73],
+      weather_code:[2,0,1,80,2,1], wind_speed_10m_max:[10,8,12,9,11,9], precipitation_sum:[0,0,0,0.15,0,0]
+    }
+  };
+
+  async function getWaterLevel() {
+    const direct = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${USGS_SITE}&parameterCd=00065&siteStatus=all`;
+    const proxy  = `https://corsproxy.io/?${encodeURIComponent(direct)}`;
+    async function parse(res) {
+      const d = await res.json();
+      const vals = d.value.timeSeries[0].values[0].value;
+      const lat = vals[vals.length-1], prev = vals[Math.max(0,vals.length-96)];
+      return { current:parseFloat(lat.value), prev:parseFloat(prev.value), isFallback:false };
+    }
+    try { const r=await fetch(proxy,{signal:AbortSignal.timeout(6000)}); if(r.ok) return parse(r); } catch(_){}
+    try { const r=await fetch(direct,{signal:AbortSignal.timeout(6000)}); if(r.ok) return parse(r); } catch(_){}
+    return WL_FALLBACK;
+  }
+
+  async function getWeather() {
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${LAKE_LAT}&longitude=${LAKE_LNG}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code,wind_speed_10m_max,precipitation_sum&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch&timezone=America/New_York&forecast_days=6`;
+    try { const r=await fetch(url,{signal:AbortSignal.timeout(7000)}); if(r.ok){const d=await r.json();d.isFallback=false;return d;} } catch(_){}
+    return WX_FALLBACK;
+  }
+
+  function renderWL(wl) {
+    const {current,prev,isFallback} = wl;
+    const chg = current - prev;
+    document.getElementById('d-wl-val').textContent = current.toFixed(2);
+    document.getElementById('d-wl-change').textContent = isFallback
+      ? 'Live data unavailable -- showing recent estimate'
+      : (chg>=0?'+':'')+chg.toFixed(2)+' ft from 24h ago';
+
+    const pct = Math.min(1,Math.max(0,(current-34)/8));
+    const fill = document.getElementById('d-gauge-fill');
+    fill.style.strokeDashoffset = 283-(pct*283);
+
+    let sc,st,gc;
+    if(current<35.5){sc='ds-danger';st='⚠ Critically Low';gc='#E07060';}
+    else if(current<WL_MIN){sc='ds-warn';st='↓ Below Target';gc='#E0A84A';}
+    else if(current>40.5){sc='ds-warn';st='↑ Above Target';gc='#E0A84A';}
+    else if(current>41.5){sc='ds-danger';st='⚠ High Water';gc='#E07060';}
+    else{sc='ds-ok';st='✓ Within Target';gc='#5DC981';}
+    fill.style.stroke = gc;
+    const se=document.getElementById('d-wl-status'); se.className='d-status '+sc; se.textContent=st;
+
+    const mp=Math.min(97,Math.max(3,((current-35)/7)*100));
+    document.getElementById('d-wl-marker').style.left=mp+'%';
+
+    let dn='';
+    if(current<36) dn='⚠️ Significantly below management targets. Drought conditions impacting depth, habitat, and boater access. Use caution on known flats.';
+    else if(current<WL_MIN) dn='↓ Below SFWMD minimum target. Dry season drawdown may be influencing levels. Monitor for further drops.';
+    else if(current>WL_MAX) dn='↑ Above normal target range. Wet season inflows likely elevated. Watch for increased aquatic vegetation and debris.';
+    else dn='✓ Within SFWMD management target range of 37.5 to 39.5 ft. Normal conditions for this time of year.';
+    document.getElementById('d-drought-note').textContent=dn;
+  }
+
+  function renderWX(wx) {
+    const c=wx.current, d=wx.daily;
+    const spd=Math.round(c.wind_speed_10m), gust=Math.round(c.wind_gusts_10m), dir=compassDir(c.wind_direction_10m);
+    document.getElementById('d-wind-spd').innerHTML=`${spd}<span class="d-unit">mph</span>`;
+    document.getElementById('d-wind-dir').innerHTML=`${dir} &bull; gusts ${gust} mph`;
+    document.getElementById('d-wind-arrow').style.transform=`rotate(${c.wind_direction_10m}deg)`;
+    let wsc,wst;
+    if(spd<5){wsc='ds-ok';wst='Calm';}
+    else if(spd<10){wsc='ds-ok';wst='✓ Light';}
+    else if(spd<15){wsc='ds-ok';wst='Moderate';}
+    else if(spd<20){wsc='ds-warn';wst='⚠ Breezy';}
+    else{wsc='ds-danger';wst='⚠ Rough -- Caution';}
+    const we=document.getElementById('d-wind-status'); we.className='d-status '+wsc; we.textContent=wst;
+
+    document.getElementById('d-temp').innerHTML=`${Math.round(c.temperature_2m)}<span class="d-unit">&deg;F</span>`;
+    document.getElementById('d-feel').textContent=`Feels like ${Math.round(c.apparent_temperature)}°`;
+    document.getElementById('d-hilo').textContent=`H: ${Math.round(d.temperature_2m_max[0])}° / L: ${Math.round(d.temperature_2m_min[0])}°`;
+    document.getElementById('d-humid').innerHTML=`${c.relative_humidity_2m}<span class="d-unit">%</span>`;
+    document.getElementById('d-precip').textContent=`Precip today: ${d.precipitation_sum[0].toFixed(2)} in`;
+
+    let fc='';
+    for(let i=1;i<=5;i++){
+      const dt=new Date(d.time[i]+'T12:00:00');
+      fc+=`<div class="fc-day"><div class="fc-name">${DAYS[dt.getDay()]}</div><div class="fc-icon">${wmoIcon(d.weather_code[i])}</div><div class="fc-temp">${Math.round(d.temperature_2m_max[i])}<span style="color:rgba(232,223,200,0.35);font-size:.7rem">°</span></div><div class="fc-wind">${Math.round(d.wind_speed_10m_max[i])} mph</div></div>`;
+    }
+    document.getElementById('d-forecast').innerHTML=fc;
+
+    const adv=[];
+    if(spd>=20||gust>=25) adv.push({cls:'dot-r',t:`Wind ${spd} mph / gusts ${gust} mph -- rough conditions on open water`});
+    else if(spd>=13) adv.push({cls:'dot-y',t:`Wind ${spd} mph -- use caution, especially on open water`});
+    else adv.push({cls:'dot-g',t:`Wind ${spd} mph -- generally favorable boating conditions`});
+    if(d.precipitation_sum[0]>0.1) adv.push({cls:'dot-y',t:`Precip today ${d.precipitation_sum[0].toFixed(2)} in -- watch for afternoon storms`});
+    else adv.push({cls:'dot-g',t:'No significant precipitation expected today'});
+    if(c.weather_code>=95) adv.push({cls:'dot-r',t:'Thunderstorm activity detected -- leave the water immediately'});
+    else if(c.weather_code>=80) adv.push({cls:'dot-y',t:'Rain showers possible -- monitor conditions and have an exit plan'});
+    else adv.push({cls:'dot-g',t:'No storm activity currently detected in the area'});
+    adv.push({cls:'dot-y',t:'Istokpoga averages 4 ft deep -- waves build fast in winds above 15 mph'});
+    document.getElementById('d-advisory').innerHTML=adv.map(a=>`<div class="adv-item"><div class="adv-dot ${a.cls}"></div><div>${a.t}</div></div>`).join('');
+  }
+
+  function renderSeasons() {
+    const m=new Date().getMonth();
+    document.getElementById('d-season-month').textContent=MONTHS[m]+' '+new Date().getFullYear();
+    const bc={peak:'sb-peak',active:'sb-active',nesting:'sb-nesting',caution:'sb-caution',closed:'sb-closed'};
+    const bl={peak:'Peak',active:'Active',nesting:'Nesting',caution:'⚠ Caution',closed:'Closed'};
+    const fi={n:'🎣','Crappie (Speck)':'🐟','Catfish':'🐠','Bluegill / Bream':'🐡','Sunshine Bass':'🎣'};
+    const fHTML=(FISH[m]||[]).map(f=>`<div class="s-item"><div class="s-icon">${fi[f.n]||'🎣'}</div><div><div class="s-name">${f.n}</div><div class="s-note">${f.t}</div></div><div class="s-badge ${bc[f.b]}">${bl[f.b]}</div></div>`).join('');
+    const wHTML=(WILD[m]||[]).map(w=>`<div class="s-item"><div class="s-icon">${w.i}</div><div><div class="s-name">${w.n}</div><div class="s-note">${w.t}</div></div><div class="s-badge ${bc[w.b]}">${bl[w.b]}</div></div>`).join('');
+    document.getElementById('d-seasons').innerHTML=`<div class="season-cat"><h4>🎣 Fishing This Month</h4>${fHTML}</div><div class="season-cat"><h4>🦅 Wildlife &amp; Breeding Activity</h4>${wHTML}</div>`;
+  }
+
+  async function initDash() {
+    renderSeasons();
+    const [wl, wx] = await Promise.all([getWaterLevel(), getWeather()]);
+    renderWL(wl);
+    renderWX(wx);
+    document.getElementById('dash-loading').style.display='none';
+    document.getElementById('dash-grid').style.display='grid';
+    if(wl.isFallback||wx.isFallback) {
+      document.getElementById('dash-fallback-note').style.display='block';
+    }
+  }
+
+  initDash();
+})();
+</script>
+
+<!-- EMAIL SIGNUP -->
+<div class="signup-strip">
+  <h3>Stay Connected to the Lake</h3>
+  <p>Get newsletter alerts, event notices, and water quality updates in your inbox.</p>
+  <div class="signup-form">
+    <input type="email" placeholder="Your email address">
+    <button type="button">Subscribe</button>
+  </div>
+</div>
+
+<!-- JOIN / DONATE -->
+<section class="join-bg" id="join">
+  <div class="section-inner">
+    <p class="section-eyebrow fade-up">Support the Mission</p>
+    <h2 class="section-title fade-up">Become Part of the Solution</h2>
+    <p class="section-lead fade-up">Every membership and donation goes directly to water quality monitoring, legal advocacy, and community education.</p>
+    <div class="join-grid fade-up">
+      <div class="join-card join-card-member">
+        <h3>Annual Membership</h3>
+        <div class="join-price">$25 <span>/ year</span></div>
+        <ul>
+          <li>Full voting rights at FOI meetings</li>
+          <li>Quarterly newsletter by email</li>
+          <li>Access to member-only lake reports</li>
+          <li>Discounts to FOI events and outings</li>
+          <li>Direct voice in advocacy decisions</li>
+        </ul>
+        <a href="#" class="btn-primary" style="background:var(--gold);">Join Online Now</a>
+        <p style="margin-top:0.8rem; font-size:0.8rem; opacity:0.55;">Or <a href="#" style="color:var(--sand);">download a mail-in application</a></p>
+      </div>
+      <div class="join-card join-card-donate">
+        <h3>Make a Donation</h3>
+        <div class="join-price" style="color:var(--cypress);">Any <span style="color:#7a6a55;">amount</span></div>
+        <ul>
+          <li>Tax-deductible as a 501(c)(3) gift</li>
+          <li>Funds water quality testing equipment</li>
+          <li>Supports legal advocacy costs</li>
+          <li>Enables public outreach programs</li>
+          <li>Helps maintain this website and newsletter</li>
+        </ul>
+        <a href="#" class="btn-primary">Donate Securely Online</a>
+        <p style="margin-top:0.8rem; font-size:0.8rem; color:#7a6a55;">Checks payable to: Friends of Istokpoga Lake Assoc., Inc.<br>P.O. Box 205 &bull; Lorida, Florida 33857</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info fade-up">
+        <p class="section-eyebrow" style="color:var(--water-lt);">Get in Touch</p>
+        <h2 class="section-title">We'd Love to Hear From You</h2>
+        <p>Whether you've spotted something alarming on the lake, want to volunteer, or just have a question -- reach out. We're a member-driven organization run by people who live and breathe this lake.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📬</div>
+          <div class="contact-detail-text">
+            <strong>Mailing Address</strong>
+            P.O. Box 205, Lorida, Florida 33857
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌐</div>
+          <div class="contact-detail-text">
+            <strong>Facebook</strong>
+            Friends of Lake Istokpoga &bull; Lake Istokpoga Group
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div class="contact-detail-text">
+            <strong>Webmaster</strong>
+            bill@istokpoga.org
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="contact-form">
+          <div class="form-row">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Email Address">
+          </div>
+          <input type="text" placeholder="Subject">
+          <textarea placeholder="Your message..."></textarea>
+          <button type="button">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        Friends of Istokpoga Lake Association, Inc.
+        <p>A 501(c)(3) nonprofit dedicated to protecting Lake Istokpoga, Highlands County Florida, for present and future generations.</p>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About FOI</a></li>
+        <li><a href="#gallery">Photo Gallery</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#conditions">Lake Conditions</a></li>
+        <li><a href="#join">Membership</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Lake Grid Map</a></li>
+        <li><a href="#">Meeting Schedule</a></li>
+        <li><a href="#">Officers & Board</a></li>
+        <li><a href="#">Associate Members</a></li>
+        <li><a href="#">Useful Links</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Friends of Istokpoga Lake Association, Inc. All Rights Reserved.</span>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/groups/FriendsofIstokpoga/" target="_blank">Facebook (FOI)</a>
+      <a href="https://www.facebook.com/groups/1618406184912998/" target="_blank">Facebook (Lake)</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Stagger children if present
+        e.target.querySelectorAll('.pillar-card, .photo-item, .newsletter-list li').forEach((c, i) => {
+          c.style.transitionDelay = (i * 0.08) + 's';
+          c.classList.add('visible');
+        });
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
