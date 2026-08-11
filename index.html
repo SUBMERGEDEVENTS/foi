@@ -1303,15 +1303,24 @@
 
   async function getWaterLevel() {
     const direct = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${USGS_SITE}&parameterCd=00065&siteStatus=all`;
-    const proxy  = `https://corsproxy.io/?${encodeURIComponent(direct)}`;
+    const proxies = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`,
+      `https://corsproxy.io/?${encodeURIComponent(direct)}`,
+      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(direct)}`,
+    ];
     async function parse(res) {
       const d = await res.json();
       const vals = d.value.timeSeries[0].values[0].value;
       const lat = vals[vals.length-1], prev = vals[Math.max(0,vals.length-96)];
       return { current:parseFloat(lat.value), prev:parseFloat(prev.value), isFallback:false };
     }
-    try { const r=await fetch(proxy,{signal:AbortSignal.timeout(6000)}); if(r.ok) return parse(r); } catch(_){}
-    try { const r=await fetch(direct,{signal:AbortSignal.timeout(6000)}); if(r.ok) return parse(r); } catch(_){}
+    for (const proxy of proxies) {
+      try {
+        const r = await fetch(proxy, {signal:AbortSignal.timeout(8000)});
+        if (r.ok) return await parse(r);
+      } catch(_) {}
+    }
+    try { const r=await fetch(direct,{signal:AbortSignal.timeout(6000)}); if(r.ok) return await parse(r); } catch(_){}
     return WL_FALLBACK;
   }
 
