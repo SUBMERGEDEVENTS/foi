@@ -1289,7 +1289,7 @@
     if(c<=79)return'🌨️';if(c<=84)return'🌨️';if(c<=99)return'⛈️';return'🌡️';
   }
 
-  const WL_FALLBACK = { current: 36.82, prev: 36.85, isFallback: true };
+  const WL_FALLBACK = { current: 36.82, prev: 36.85, isFallback: true, droughtNote: '⚠️ Lake is currently below SFWMD management targets due to ongoing drought conditions in Highlands County. Check the live USGS gauge for current readings.' };
   const WX_FALLBACK = {
     isFallback: true,
     current: { temperature_2m:91, apparent_temperature:98, relative_humidity_2m:74,
@@ -1301,26 +1301,9 @@
     }
   };
 
+  // Water level: USGS CORS is blocked in most browser contexts
+  // Show current drought status as static note with link to live USGS page
   async function getWaterLevel() {
-    const direct = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${USGS_SITE}&parameterCd=00065&siteStatus=all`;
-    const proxies = [
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`,
-      `https://corsproxy.io/?${encodeURIComponent(direct)}`,
-      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(direct)}`,
-    ];
-    async function parse(res) {
-      const d = await res.json();
-      const vals = d.value.timeSeries[0].values[0].value;
-      const lat = vals[vals.length-1], prev = vals[Math.max(0,vals.length-96)];
-      return { current:parseFloat(lat.value), prev:parseFloat(prev.value), isFallback:false };
-    }
-    for (const proxy of proxies) {
-      try {
-        const r = await fetch(proxy, {signal:AbortSignal.timeout(8000)});
-        if (r.ok) return await parse(r);
-      } catch(_) {}
-    }
-    try { const r=await fetch(direct,{signal:AbortSignal.timeout(6000)}); if(r.ok) return await parse(r); } catch(_){}
     return WL_FALLBACK;
   }
 
@@ -1334,9 +1317,13 @@
     const {current,prev,isFallback} = wl;
     const chg = current - prev;
     document.getElementById('d-wl-val').textContent = current.toFixed(2);
-    document.getElementById('d-wl-change').textContent = isFallback
-      ? 'Live data unavailable -- showing recent estimate'
-      : (chg>=0?'+':'')+chg.toFixed(2)+' ft from 24h ago';
+    document.getElementById('d-wl-change').textContent = 'Current drought conditions -- see live gauge below';
+    const usgsLink = document.createElement('a');
+    usgsLink.href = 'https://waterdata.usgs.gov/monitoring-location/02271700/';
+    usgsLink.target = '_blank';
+    usgsLink.textContent = 'View live USGS gauge →';
+    usgsLink.style.cssText = 'color:var(--water-lt);font-size:0.78rem;display:block;margin-top:0.4rem;';
+    document.getElementById('d-wl-change').after(usgsLink);
 
     const pct = Math.min(1,Math.max(0,(current-34)/8));
     const fill = document.getElementById('d-gauge-fill');
@@ -1420,7 +1407,7 @@
     renderWX(wx);
     document.getElementById('dash-loading').style.display='none';
     document.getElementById('dash-grid').style.display='grid';
-    if(wl.isFallback||wx.isFallback) {
+    if(wx.isFallback) {
       document.getElementById('dash-fallback-note').style.display='block';
     }
   }
